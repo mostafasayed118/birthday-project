@@ -1,7 +1,26 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
-import { SECTION_DEFAULTS } from "../lib/constants";
+import { SectionContent } from "./validators";
 
+const SECTION_DEFAULTS: Record<string, { content: unknown; settings: unknown }> = {
+  hero: { content: { title: "Happy Birthday,", subtitle: "Beautiful!", titleAlignment: "center", height: "full", backgroundOverlay: 30, overlayColor: "#874e58", ctaText: "Celebrate", ctaLink: "#our-story", sendLoveText: "", heartAnimationDuration: 1000, loveMessages: ["You are amazing!", "Sending you all my love!", "You make the world brighter!", "Thinking of you today!"] }, settings: {} },
+  message: { content: { heading: "A Letter to You", body: "Celebrating another incredible year of you.", alignment: "center", fontStyle: "default" }, settings: {} },
+  gallery: { content: { images: [], layout: "grid", columns: 3, showCaptions: true, gap: "16px" }, settings: {} },
+  timeline: { content: { heading: "Our Journey", events: [], style: "alternating", showDates: true, showImages: true }, settings: {} },
+  quote: { content: { text: "Life is a beautiful journey.", style: "inline", backgroundStyle: "solid" }, settings: {} },
+  countdown: { content: { title: "We can't wait to celebrate you!", targetDate: new Date(Date.now() + 30 * 86400000).toISOString(), expiredMessage: "The moment has arrived!", style: "boxes", showLabels: true }, settings: {} },
+  map: { content: { latitude: 48.8566, longitude: 2.3522, label: "Paris", zoom: 12, mapStyle: "standard", showLabel: true }, settings: {} },
+  divider: { content: { style: "line" }, settings: {} },
+  spacer: { content: { height: "80px" }, settings: {} },
+  stats: { content: { heading: "Our Milestones", items: [{ id: "1", value: "365", label: "Days Together" }, { id: "2", value: "1000+", label: "Memories" }, { id: "3", value: "1", label: "Love Story" }], layout: "row", animateOnScroll: true }, settings: {} },
+  footer: { content: { text: "Made with love", socialLinks: [], showAttribution: true }, settings: {} },
+  video: { content: { url: "", autoplay: false, muted: true }, settings: {} },
+  audio: { content: { tracks: [{ id: crypto.randomUUID(), title: "Our Song", artist: "", storageId: "", url: "", order: 0, enabled: true }], playlistTitle: "Our Playlist", autoplay: false, loop: false, showPlaylist: true, showCoverImage: true, showProgressBar: true, showPlayer: true }, settings: {} },
+  memory_highlights: { content: { image: "", heading: "A Year of Beautiful Light", body: "This past year has been illuminated by your smile.", signoff: "Cheers to many more" }, settings: {} },
+  love_notes: { content: { heading: "Love Notes", subtitle: "Messages from those who adore you.", notes: [], ctaText: "Leave a Note", ctaLink: "#" }, settings: {} },
+};
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 async function getOwnedSite(ctx: any, siteId: string) {
   const identity = await ctx.auth.getUserIdentity();
   if (!identity) throw new Error("Not authenticated");
@@ -56,7 +75,7 @@ export const updateSectionContent = mutation({
   args: {
     siteId: v.id("sites"),
     sectionId: v.string(),
-    content: v.any(),
+    content: SectionContent,
   },
   handler: async (ctx, args) => {
     const { site } = await getOwnedSite(ctx, args.siteId);
@@ -138,6 +157,26 @@ export const reorderSections = mutation({
   },
 });
 
+export const setVisibility = mutation({
+  args: {
+    siteId: v.id("sites"),
+    sectionId: v.string(),
+    visible: v.boolean(),
+  },
+  handler: async (ctx, args) => {
+    const { site } = await getOwnedSite(ctx, args.siteId);
+
+    const sections = site.draftData.sections.map((s: any) =>
+      s.id === args.sectionId ? { ...s, visible: args.visible } : s
+    );
+
+    await ctx.db.patch(args.siteId, {
+      draftData: { ...site.draftData, sections },
+      updatedAt: Date.now(),
+    });
+  },
+});
+
 export const removeSection = mutation({
   args: {
     siteId: v.id("sites"),
@@ -148,7 +187,7 @@ export const removeSection = mutation({
 
     const sections = site.draftData.sections
       .filter((s: any) => s.id !== args.sectionId)
-      .map((s: any, i: any) => ({ ...s, order: i }));
+      .map((s: any, i: number) => ({ ...s, order: i }));
 
     await ctx.db.patch(args.siteId, {
       draftData: { ...site.draftData, sections },

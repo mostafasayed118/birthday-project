@@ -7,6 +7,7 @@ import {
   SwitchField,
   EditorDivider,
 } from "./fields";
+import { ImageUpload } from "../image-upload";
 
 interface CountdownEditorProps {
   content: SectionContent;
@@ -23,6 +24,18 @@ export function CountdownEditor({ content, onUpdate }: CountdownEditorProps) {
   const dateValue = c.targetDate
     ? new Date(c.targetDate).toISOString().slice(0, 16)
     : "";
+
+  const celebration = c.celebrationAnimation || {
+    type: "icon" as const,
+    asset: "",
+    enabled: true,
+  };
+
+  const updateCelebration = (updates: Partial<typeof celebration>) => {
+    update({
+      celebrationAnimation: { ...celebration, ...updates },
+    });
+  };
 
   return (
     <div className="space-y-4">
@@ -41,7 +54,7 @@ export function CountdownEditor({ content, onUpdate }: CountdownEditorProps) {
       />
 
       <div className="space-y-1.5">
-        <label className="text-xs font-medium">Target Date & Time</label>
+        <label className="text-xs font-medium">Target Date &amp; Time</label>
         <input
           type="datetime-local"
           value={dateValue}
@@ -84,6 +97,44 @@ export function CountdownEditor({ content, onUpdate }: CountdownEditorProps) {
           checked={c.showLabels}
           onCheckedChange={(v) => update({ showLabels: v })}
         />
+      </div>
+
+      <EditorDivider />
+
+      <div className="space-y-3">
+        <h4 className="text-xs font-medium">Celebration Animation</h4>
+
+        <SwitchField
+          label="Show Celebration on Finish"
+          checked={celebration.enabled !== false}
+          onCheckedChange={(v) => updateCelebration({ enabled: v })}
+        />
+
+        {celebration.enabled !== false && (
+          <>
+            <SelectField
+              label="Animation Type"
+              value={celebration.type}
+              onValueChange={(v) =>
+                updateCelebration({ type: v as "gif" | "image" | "icon" })
+              }
+              options={[
+                { value: "icon", label: "Icon (Star)" },
+                { value: "image", label: "Image" },
+                { value: "gif", label: "GIF" },
+              ]}
+            />
+
+            {(celebration.type === "image" || celebration.type === "gif") && (
+              <ImageUpload
+                label="Celebration Asset"
+                value={celebration.asset || ""}
+                onChange={(v) => updateCelebration({ asset: v })}
+                description="Upload an image or GIF for the celebration animation"
+              />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

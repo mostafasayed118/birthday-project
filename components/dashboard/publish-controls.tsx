@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -44,7 +45,7 @@ export function PublishControls({
     setIsPublishing(true);
     setPublishSuccess(false);
     try {
-      await publish({ siteId: siteId as any });
+      await publish({ siteId: siteId as Id<"sites"> });
       setPublishSuccess(true);
       setTimeout(() => setPublishSuccess(false), 3000);
     } catch (error) {
@@ -58,7 +59,7 @@ export function PublishControls({
     setIsRollingBack(true);
     setShowRollbackConfirm(false);
     try {
-      await rollback({ siteId: siteId as any });
+      await rollback({ siteId: siteId as Id<"sites"> });
     } catch (error) {
       console.error("Rollback failed:", error);
     } finally {

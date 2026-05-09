@@ -16,6 +16,8 @@ import type {
   FooterContent,
   VideoContent,
   AudioContent,
+  MemoryHighlightsContent,
+  LoveNotesContent,
 } from "./types";
 
 export const SECTION_TYPES: { type: SectionType; label: string; icon: string }[] = [
@@ -154,10 +156,34 @@ export const SECTION_DEFAULTS: Record<
   },
   audio: {
     content: {
-      url: "",
-      title: "Our Song",
+      tracks: [],
+      playlistTitle: "Our Soundtrack",
+      autoplay: false,
+      loop: false,
+      showPlaylist: true,
+      showCoverImage: true,
+      showProgressBar: true,
       showPlayer: true,
     } as AudioContent,
+    settings: {},
+  },
+  memory_highlights: {
+    content: {
+      image: "",
+      heading: "A Year of Beautiful Light",
+      body: "This past year has been illuminated by your smile.",
+      signoff: "Cheers to many more",
+    } as MemoryHighlightsContent,
+    settings: {},
+  },
+  love_notes: {
+    content: {
+      heading: "Love Notes",
+      subtitle: "Messages from those who adore you.",
+      notes: [],
+      ctaText: "Leave a Note",
+      ctaLink: "#",
+    } as LoveNotesContent,
     settings: {},
   },
 };

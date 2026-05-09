@@ -11,7 +11,9 @@ export type SectionType =
   | "stats"
   | "footer"
   | "video"
-  | "audio";
+  | "audio"
+  | "memory_highlights"
+  | "love_notes";
 
 export type OccasionType =
   | "anniversary"
@@ -51,18 +53,32 @@ export type SectionContent =
   | StatsContent
   | FooterContent
   | VideoContent
-  | AudioContent;
+  | AudioContent
+  | MemoryHighlightsContent
+  | LoveNotesContent;
 
 export type SectionSettings = Record<string, unknown>;
+
+export interface AnimationSettings {
+  enabled: boolean;
+  type: "fade" | "slide" | "scale" | "bounce" | "none";
+  duration: number;
+  delay: number;
+  easing: "ease" | "ease-in" | "ease-out" | "ease-in-out" | "linear";
+}
 
 export interface HeroContent {
   title: string;
   subtitle?: string;
+  body?: string;
   backgroundImage?: string;
   backgroundOverlay?: number;
   overlayColor?: string;
   ctaText?: string;
   ctaLink?: string;
+  sendLoveText?: string;
+  heartAnimationDuration?: number;
+  loveMessages?: string[];
   titleAlignment: "left" | "center" | "right";
   height: "full" | "large" | "medium";
 }
@@ -76,6 +92,8 @@ export interface MessageContent {
 }
 
 export interface GalleryContent {
+  heading?: string;
+  subtitle?: string;
   images: GalleryImage[];
   layout: "grid" | "masonry" | "carousel" | "stack";
   columns: 2 | 3 | 4;
@@ -86,6 +104,7 @@ export interface GalleryContent {
 export interface GalleryImage {
   id: string;
   storageId: string;
+  src?: string;
   caption?: string;
   alt?: string;
 }
@@ -107,11 +126,24 @@ export interface TimelineEvent {
 }
 
 export interface QuoteContent {
-  text: string;
-  author?: string;
-  style: "card" | "inline" | "banner" | "scripture";
-  backgroundStyle: "solid" | "gradient" | "image";
-  backgroundImage?: string;
+   text: string;
+   author?: string;
+   style: "card" | "inline" | "banner" | "scripture";
+   backgroundStyle: "solid" | "gradient" | "image";
+   backgroundImage?: string;
+}
+
+export interface Quote {
+  _id: string;
+  content: string;
+  author: string;
+  source?: string;
+  tags?: string[];
+  status: "published" | "draft";
+  featured?: boolean;
+  createdBy: string;
+  createdAt: number;
+  updatedAt: number;
 }
 
 export interface CountdownContent {
@@ -121,6 +153,11 @@ export interface CountdownContent {
   expiredMessage: string;
   style: "boxes" | "flip" | "minimal";
   showLabels: boolean;
+  celebrationAnimation?: {
+    type: "gif" | "image" | "icon";
+    asset?: string;
+    enabled?: boolean;
+  };
 }
 
 export interface MapContent {
@@ -177,10 +214,54 @@ export interface VideoContent {
   thumbnail?: string;
 }
 
+export interface AudioTrack {
+  id: string;
+  title: string;
+  artist: string;
+  storageId?: string;
+  url?: string;
+  coverImage?: string;
+  duration?: number;
+  caption?: string;
+  order: number;
+  enabled: boolean;
+}
+
 export interface AudioContent {
-  url: string;
-  title?: string;
+  tracks: AudioTrack[];
+  playlistTitle: string;
+  playlistSubtitle?: string;
+  defaultTrackId?: string;
+  autoplay: boolean;
+  loop: boolean;
+  showPlaylist: boolean;
+  showCoverImage: boolean;
+  showProgressBar: boolean;
   showPlayer: boolean;
+}
+
+export interface MemoryHighlightsContent {
+  image: string;
+  heading: string;
+  body: string;
+  sparkline?: string;
+  signoff: string;
+}
+
+export interface LoveNoteItem {
+  id: string;
+  initial: string;
+  name: string;
+  message: string;
+  colorScheme: "primary" | "secondary" | "surface";
+}
+
+export interface LoveNotesContent {
+  heading: string;
+  subtitle: string;
+  notes: LoveNoteItem[];
+  ctaText: string;
+  ctaLink: string;
 }
 
 export interface ThemeColors {
@@ -194,6 +275,16 @@ export interface ThemeColors {
   border: string;
   error: string;
   success: string;
+  primaryContainer?: string;
+  secondaryContainer?: string;
+  surfaceDim?: string;
+  surfaceVariant?: string;
+  onPrimaryContainer?: string;
+  onSecondaryContainer?: string;
+  onSurfaceVariant?: string;
+  primaryFixed?: string;
+  primaryFixedDim?: string;
+  secondaryFixed?: string;
 }
 
 export interface ThemeTypography {

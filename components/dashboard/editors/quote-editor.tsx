@@ -7,6 +7,7 @@ import {
   SelectField,
   EditorDivider,
 } from "./fields";
+import { ImageUpload } from "../image-upload";
 
 interface QuoteEditorProps {
   content: SectionContent;
@@ -25,7 +26,7 @@ export function QuoteEditor({ content, onUpdate }: QuoteEditorProps) {
       <TextareaField
         label="Quote Text"
         value={c.text}
-        onChange={(v) => update({ text: v })}
+        onChange={(v: string) => update({ text: v })}
         placeholder="Enter the quote..."
         rows={3}
       />
@@ -71,11 +72,10 @@ export function QuoteEditor({ content, onUpdate }: QuoteEditorProps) {
       </div>
 
       {c.backgroundStyle === "image" && (
-        <TextField
-          label="Background Image URL"
+        <ImageUpload
+          label="Background Image"
           value={c.backgroundImage || ""}
           onChange={(v) => update({ backgroundImage: v })}
-          placeholder="https://..."
         />
       )}
     </div>

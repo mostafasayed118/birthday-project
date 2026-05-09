@@ -10,6 +10,7 @@ import {
   RemoveItemButton,
   EmptyState,
 } from "./fields";
+import { ImageUpload } from "../image-upload";
 
 interface GalleryEditorProps {
   content: SectionContent;
@@ -112,11 +113,10 @@ export function GalleryEditor({ content, onUpdate }: GalleryEditorProps) {
                   <RemoveItemButton onClick={() => removeImage(index)} />
                 </div>
 
-                <TextField
-                  label="Image URL"
+                <ImageUpload
+                  label="Image"
                   value={image.storageId}
                   onChange={(v) => updateImage(index, { storageId: v })}
-                  placeholder="https://... or upload later"
                 />
 
                 <TextField

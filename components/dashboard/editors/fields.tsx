@@ -131,6 +131,7 @@ interface SelectFieldProps {
   onValueChange: (value: string) => void;
   options: { value: string; label: string }[];
   description?: string;
+  defaultValue?: string;
 }
 
 export function SelectField({
@@ -139,11 +140,13 @@ export function SelectField({
   onValueChange,
   options,
   description,
+  defaultValue,
 }: SelectFieldProps) {
+  const items = options.map((opt) => ({ value: opt.value, label: opt.label }))
   return (
     <div className="space-y-1.5">
       <Label className="text-xs">{label}</Label>
-      <Select value={value} onValueChange={(v) => { if (v) onValueChange(v); }}>
+      <Select value={value || defaultValue} onValueChange={(v) => { if (v) onValueChange(v); }} items={items}>
         <SelectTrigger>
           <SelectValue />
         </SelectTrigger>

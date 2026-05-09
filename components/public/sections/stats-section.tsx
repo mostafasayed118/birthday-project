@@ -23,20 +23,11 @@ export function StatsSection({ content, theme }: SectionProps) {
         <SectionHeading theme={theme}>{c.heading}</SectionHeading>
       )}
 
-      <div
-        className="mt-10 grid"
-        style={{
-          gridTemplateColumns:
-            c.layout === "grid"
-              ? `repeat(auto-fit, minmax(160px, 1fr))`
-              : `repeat(${c.items.length}, 1fr)`,
-          gap: theme.spacing.elementGap,
-        }}
-      >
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" style={{ gap: theme.spacing.elementGap }}>
         {c.items.map((item) => (
           <div
             key={item.id}
-            className="text-center p-6"
+            className="text-center p-4 sm:p-6"
             style={{
               backgroundColor: theme.colors.surface,
               borderRadius: theme.borders.cardRadius,

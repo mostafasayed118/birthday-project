@@ -18,8 +18,7 @@ export function MapSection({ content, theme }: SectionProps) {
         <iframe
           title={c.label || "Map"}
           width="100%"
-          height="400"
-          style={{ border: 0 }}
+          style={{ height: "300px", maxHeight: "50vh", border: 0 }}
           src={embedUrl}
           loading="lazy"
         />

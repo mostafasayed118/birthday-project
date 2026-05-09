@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, memo } from "react";
 import type { SectionData, ThemeData } from "@/lib/types";
 import { getSectionComponent } from "./sections";
+import { SectionAnimationWrapper } from "./sections/section-animation-wrapper";
 import { cn } from "@/lib/utils";
 
 interface SectionRendererProps {
@@ -28,9 +29,11 @@ const SECTION_LABELS: Record<string, string> = {
   footer: "Footer",
   video: "Video",
   audio: "Audio",
+  memory_highlights: "Memory Highlight",
+  love_notes: "Love Notes",
 };
 
-export function SectionRenderer({
+const SectionRenderer = memo(function SectionRenderer({
   section,
   theme,
   isPreview,
@@ -66,14 +69,30 @@ export function SectionRenderer({
         isHighlighted && !isSelected && "ring-2 ring-primary/40 ring-offset-1",
         isSelected && "ring-2 ring-primary ring-offset-1"
       )}
+      role={isPreview ? "button" : undefined}
+      tabIndex={isPreview ? 0 : undefined}
+      aria-label={isPreview ? `${SECTION_LABELS[section.type] || section.type} section — click to edit` : undefined}
       onClick={handleClick}
+      onKeyDown={
+        isPreview
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectSection?.(section.id);
+              }
+            }
+          : undefined
+      }
     >
-      <Component
-        content={section.content}
-        settings={section.settings}
-        theme={theme}
-        isPreview={isPreview}
-      />
+      <SectionAnimationWrapper settings={section.settings}>
+        <Component
+          key={section.id}
+          content={section.content}
+          settings={section.settings}
+          theme={theme}
+          isPreview={isPreview}
+        />
+      </SectionAnimationWrapper>
 
       {isPreview && isSelected && (
         <div className="absolute top-2 left-2 z-50 pointer-events-none">
@@ -86,4 +105,6 @@ export function SectionRenderer({
       )}
     </div>
   );
-}
+});
+
+export { SectionRenderer };

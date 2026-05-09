@@ -14,7 +14,14 @@ export const generateUploadUrl = mutation({
 export const getFileUrl = query({
   args: { storageId: v.string() },
   handler: async (ctx, args) => {
-    const url = await ctx.storage.getUrl(args.storageId);
-    return url;
+    const storageId = args.storageId;
+    if (!storageId || typeof storageId !== "string") {
+      return null;
+    }
+    try {
+      return await ctx.storage.getUrl(storageId);
+    } catch {
+      return null;
+    }
   },
 });

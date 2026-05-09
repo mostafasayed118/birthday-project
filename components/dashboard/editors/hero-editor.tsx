@@ -4,6 +4,7 @@ import type { HeroContent, SectionContent } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { ImageUpload } from "../image-upload";
 import {
   Select,
   SelectContent,
@@ -51,10 +52,15 @@ export function HeroEditor({ content, onUpdate }: HeroEditorProps) {
         <div className="space-y-2">
           <Label>Alignment</Label>
           <Select
-            value={c.titleAlignment}
+            value={c.titleAlignment || "center"}
             onValueChange={(v) =>
               update({ titleAlignment: v as "left" | "center" | "right" })
             }
+            items={[
+              { value: "left", label: "Left" },
+              { value: "center", label: "Center" },
+              { value: "right", label: "Right" },
+            ]}
           >
             <SelectTrigger>
               <SelectValue />
@@ -70,10 +76,15 @@ export function HeroEditor({ content, onUpdate }: HeroEditorProps) {
         <div className="space-y-2">
           <Label>Height</Label>
           <Select
-            value={c.height}
+            value={c.height || "large"}
             onValueChange={(v) =>
               update({ height: v as "full" | "large" | "medium" })
             }
+            items={[
+              { value: "full", label: "Full Screen" },
+              { value: "large", label: "Large" },
+              { value: "medium", label: "Medium" },
+            ]}
           >
             <SelectTrigger>
               <SelectValue />
@@ -108,13 +119,60 @@ export function HeroEditor({ content, onUpdate }: HeroEditorProps) {
       </div>
 
       <div className="space-y-2">
-        <Label>Background Image</Label>
-        <div className="rounded-md border border-dashed border-border p-8 text-center">
-          <p className="text-xs text-muted-foreground">
-            Image upload will be available in Phase 3 (Content Editing)
-          </p>
-        </div>
+        <Label htmlFor="hero-send-love-text">Send Love Button Text</Label>
+        <Input
+          id="hero-send-love-text"
+          value={c.sendLoveText || ""}
+          onChange={(e) => update({ sendLoveText: e.target.value })}
+          placeholder="e.g., Send Love"
+        />
       </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="hero-heart-duration">Heart Animation Duration (ms)</Label>
+        <Input
+          id="hero-heart-duration"
+          type="number"
+          min={100}
+          max={10000}
+          step={100}
+          value={c.heartAnimationDuration || 1000}
+          onChange={(e) =>
+            update({ heartAnimationDuration: parseInt(e.target.value) || 1000 })
+          }
+        />
+        <p className="text-xs text-muted-foreground">
+          Duration of the heart animation when clicking &quot;Send Love&quot; button
+        </p>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="hero-love-messages">Love Messages</Label>
+        <Textarea
+          id="hero-love-messages"
+          value={(c.loveMessages || []).join("\n")}
+          onChange={(e) =>
+            update({
+              loveMessages: e.target.value
+                .split("\n")
+                .map((m) => m.trim())
+                .filter((m) => m),
+            })
+          }
+          placeholder="One message per line - selected randomly when Send Love is clicked"
+          rows={4}
+        />
+        <p className="text-xs text-muted-foreground">
+          {(c.loveMessages || []).length} message(s) configured
+        </p>
+      </div>
+
+      <ImageUpload
+        label="Background Image"
+        value={c.backgroundImage || ""}
+        onChange={(v) => update({ backgroundImage: v })}
+        description="Full-screen background image for the hero section"
+      />
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">

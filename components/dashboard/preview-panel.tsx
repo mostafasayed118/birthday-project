@@ -26,24 +26,29 @@ const VIEWPORT_CONFIG: Record<
 };
 
 export function PreviewPanel({
-  sections,
-  theme,
-  viewport,
-  highlightedSectionId,
-  selectedSectionId,
-  onViewportChange,
-  onSelectSection,
-}: PreviewPanelProps) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isReady, setIsReady] = useState(false);
+   sections,
+   theme,
+   viewport,
+   highlightedSectionId,
+   selectedSectionId,
+   onViewportChange,
+   onSelectSection,
+ }: PreviewPanelProps) {
+   const scrollContainerRef = useRef<HTMLDivElement>(null);
+   const [isReady, setIsReady] = useState(true);
+   const prevKeyRef = useRef<string>("");
 
-  const config = VIEWPORT_CONFIG[viewport];
+   const config = VIEWPORT_CONFIG[viewport];
+   const sectionsKey = JSON.stringify(sections) + JSON.stringify(theme);
 
-  useEffect(() => {
-    setIsReady(false);
-    const timer = setTimeout(() => setIsReady(true), 100);
-    return () => clearTimeout(timer);
-  }, [sections, theme]);
+   useEffect(() => {
+     if (prevKeyRef.current !== sectionsKey) {
+       setIsReady(false);
+       const timer = setTimeout(() => setIsReady(true), 100);
+       return () => clearTimeout(timer);
+     }
+     prevKeyRef.current = sectionsKey;
+   }, [sectionsKey]);
 
   const scrollToSection = useCallback((sectionId: string) => {
     const container = scrollContainerRef.current;
@@ -133,7 +138,7 @@ export function PreviewPanel({
               viewport !== "desktop" && "ring-1 ring-black/5"
             )}
             style={{
-              width: config.width,
+              width: viewport === "mobile" ? "100%" : config.width,
               maxWidth: "100%",
               minHeight: viewport === "desktop" ? "100%" : undefined,
             }}

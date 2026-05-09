@@ -132,6 +132,47 @@ export const THEME_PRESETS: Record<string, ThemeData> = {
       success: "#22c55e",
     },
   },
+  "festive-air": {
+    ...DEFAULT_THEME,
+    colors: {
+      primary: "#874e58",
+      secondary: "#765a05",
+      background: "#fdf8ff",
+      surface: "#ffffff",
+      text: "#1c1149",
+      textSecondary: "#514345",
+      accent: "#ffd87c",
+      border: "#f4acb7",
+      error: "#ba1a1a",
+      success: "#22c55e",
+    },
+    typography: {
+      headingFont: "Epilogue",
+      bodyFont: "Plus Jakarta Sans",
+      headingWeight: "700",
+      bodyWeight: "400",
+      baseFontSize: 16,
+      lineHeight: 1.6,
+      headingScale: 1.25,
+    },
+    spacing: {
+      sectionPadding: "120px",
+      containerWidth: "1200px",
+      elementGap: "24px",
+      cardPadding: "32px",
+    },
+    borders: {
+      radius: "8px",
+      cardRadius: "24px",
+      buttonRadius: "9999px",
+      borderWidth: "1px",
+    },
+    effects: {
+      shadow: "0 4px 20px rgba(244,172,183,0.1)",
+      cardShadow: "0 20px 60px rgba(244,172,183,0.25)",
+      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    },
+  },
 };
 
 export function themeToCSSVariables(theme: ThemeData): Record<string, string> {
@@ -179,6 +220,7 @@ export const GOOGLE_FONTS = {
     "Dancing Script",
     "Pacifico",
     "Satisfy",
+    "Epilogue",
   ],
   body: [
     "Inter",
@@ -189,5 +231,6 @@ export const GOOGLE_FONTS = {
     "Roboto",
     "PT Sans",
     "Work Sans",
+    "Plus Jakarta Sans",
   ],
 };

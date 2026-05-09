@@ -2,18 +2,20 @@
 
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import type { Id } from "@/convex/_generated/dataModel";
 import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { SectionEditor } from "./editors";
 import { ThemeEditor } from "./theme-editor";
+import { SiteSettingsEditor } from "./site-settings-editor";
 import type {
   SectionData,
   EditorMode,
   SectionContent,
   SectionSettings,
   ThemeData,
+  SiteSettings,
 } from "@/lib/types";
 
 interface ContentEditorProps {
@@ -21,6 +23,11 @@ interface ContentEditorProps {
   section: SectionData | null;
   editorMode: EditorMode;
   theme: ThemeData;
+  siteTitle: string;
+  siteDescription: string;
+  siteSlug: string;
+  siteSettings: SiteSettings;
+  onUpdateSiteMeta: (fields: { title?: string; description?: string; slug?: string }) => void;
 }
 
 export function ContentEditor({
@@ -28,9 +35,15 @@ export function ContentEditor({
   section,
   editorMode,
   theme,
+  siteTitle,
+  siteDescription,
+  siteSlug,
+  siteSettings,
+  onUpdateSiteMeta,
 }: ContentEditorProps) {
   const updateContent = useMutation(api.sections.updateSectionContent);
   const updateSettings = useMutation(api.sections.updateSectionSettings);
+  const setVisibility = useMutation(api.sections.setVisibility);
 
   if (editorMode === "theme") {
     return <ThemeEditor siteId={siteId} theme={theme} />;
@@ -38,12 +51,14 @@ export function ContentEditor({
 
   if (editorMode === "settings") {
     return (
-      <div className="p-4 space-y-4">
-        <h3 className="text-sm font-medium">Site Settings</h3>
-        <p className="text-xs text-muted-foreground">
-          Site settings editing will be available in a future phase.
-        </p>
-      </div>
+      <SiteSettingsEditor
+        siteId={siteId}
+        title={siteTitle}
+        description={siteDescription}
+        slug={siteSlug}
+        settings={siteSettings}
+        onUpdateMeta={onUpdateSiteMeta}
+      />
     );
   }
 
@@ -65,7 +80,7 @@ export function ContentEditor({
   function handleUpdateContent(content: SectionContent) {
     if (!section) return;
     updateContent({
-      siteId: siteId as any,
+      siteId: siteId as Id<"sites">,
       sectionId: section.id,
       content,
     });
@@ -74,7 +89,7 @@ export function ContentEditor({
   function handleUpdateSettings(settings: SectionSettings) {
     if (!section) return;
     updateSettings({
-      siteId: siteId as any,
+      siteId: siteId as Id<"sites">,
       sectionId: section.id,
       settings,
     });
@@ -101,7 +116,11 @@ export function ContentEditor({
               id="section-visible"
               checked={section.visible}
               onCheckedChange={(checked) => {
-                handleUpdateSettings({ ...section.settings, visible: checked });
+                setVisibility({
+                  siteId: siteId as Id<"sites">,
+                  sectionId: section.id,
+                  visible: checked,
+                });
               }}
             />
           </div>

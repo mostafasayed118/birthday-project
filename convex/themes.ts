@@ -1,11 +1,12 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { THEME_PRESETS } from "../lib/theme-tokens";
+import { ThemeData } from "./validators";
 
 export const updateTheme = mutation({
   args: {
     siteId: v.id("sites"),
-    theme: v.any(),
+    theme: ThemeData,
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -16,18 +17,8 @@ export const updateTheme = mutation({
       throw new Error("Site not found or not authorized");
     }
 
-    const mergedTheme = {
-      ...site.draftData.theme,
-      ...args.theme,
-      colors: { ...site.draftData.theme?.colors, ...args.theme?.colors },
-      typography: { ...site.draftData.theme?.typography, ...args.theme?.typography },
-      spacing: { ...site.draftData.theme?.spacing, ...args.theme?.spacing },
-      borders: { ...site.draftData.theme?.borders, ...args.theme?.borders },
-      effects: { ...site.draftData.theme?.effects, ...args.theme?.effects },
-    };
-
     await ctx.db.patch(args.siteId, {
-      draftData: { ...site.draftData, theme: mergedTheme },
+      draftData: { ...site.draftData, theme: args.theme },
       updatedAt: Date.now(),
     });
   },

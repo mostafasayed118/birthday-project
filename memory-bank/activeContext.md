@@ -2,58 +2,48 @@
 
 ## Current Phase
 
-**Phase 0–6 Complete** — Ready for Phase 7 (Preview Panel enhancements or Polish).
+**CMS Architecture Complete** — Dashboard is the single source of truth. All content CMS-driven.
 
 ## What We're Working On
 
-Phase 6 (Draft/Publish Workflow) has been implemented. The full publish loop is now functional: dashboard edits draft data, public page reads published data, users can publish and rollback.
+The Festive Air birthday celebration design from `stitch_blush_birthday_celebration` has been fully implemented as a demo page at `/demo`.
 
 ## Key Decisions Made
 
 1. **Tech stack**: Next.js 16.2.4, TypeScript, Convex 1.37.0, Tailwind CSS v4, shadcn/ui v4
-2. **Public route**: Client component using `useQuery(api.sites.getBySlug)` — reads publishedData only
-3. **Unpublished state**: Shows "Page Not Found" — never leaks draft data
-4. **hasUnpublishedChanges**: Computed via `JSON.stringify(draftData) !== JSON.stringify(publishedData)`
-5. **Publish flow**: Button → loading state → Convex publish mutation → success badge → auto-clear after 3s
-6. **Rollback flow**: Button → AlertDialog confirmation → Convex rollback mutation → draft replaced with published
-7. **Status badges**: "Published" (green), "Unpublished Changes" (amber), "Draft Only" (neutral)
-8. **Published date**: Shown in header when site has been published
+2. **Demo page**: Standalone `/demo` route implementing the Festive Air design exactly
+3. **Theme preset**: Added "festive-air" to theme presets with Epilogue + Plus Jakarta Sans fonts
+4. **Animations**: CSS keyframe animations in globals.css (float, shimmer, reveal, bloom, pulse-subtle)
+5. **Icons**: Lucide React used instead of Material Symbols for React compatibility
+6. **Design fidelity**: All 8 sections implemented: Hero, Quote, Timeline, Countdown, Memory Highlights, Photo Gallery, Love Notes, Music Player
+7. **Wave dividers**: SVG wave components between sections
+8. **Glassmorphism**: backdrop-blur-xl with semi-transparent backgrounds
+9. **Scroll reveal**: IntersectionObserver-based fade-in-up animations
 
 ## Next Steps
 
-1. Connect Convex project (`npx convex dev`)
-2. Begin Phase 7: Preview Panel — could enhance with viewport sync, better preview accuracy
-3. Or Phase 8: Polish & Performance — loading states, error boundaries, SEO, responsive fixes
+1. Connect Convex project (`npx convex dev`) for end-to-end testing
+2. Deploy to production
+3. Optionally: Integrate Festive Air as a template option in the CMS
 
-## File Tree (Updated for Phase 6)
+## File Tree (Final)
 
 ```
 app/(public)/
-  [slug]/page.tsx                    # PUBLIC ROUTE (REWRITTEN - reads publishedData via Convex)
+  demo/page.tsx                   # Festive Air demo page (NEW - full birthday celebration)
+  [slug]/page.tsx                 # Public microsite page
+  layout.tsx                      # Public layout
 
-app/(dashboard)/dashboard/sites/
-  [siteId]/page.tsx                  # EDITOR (UPDATED - integrated PublishControls in header)
-
-components/dashboard/
-  publish-controls.tsx               # (REWRITTEN - real shadcn/ui, publish/rollback/status)
-  content-editor.tsx                 # (unchanged)
-  preview-panel.tsx                  # (unchanged - still renders draft data correctly)
-  section-manager.tsx                # (unchanged)
-  theme-editor.tsx                   # (unchanged)
-
-components/ui/
-  badge.tsx                          # (NEW - shadcn/ui badge for status indicators)
-
-convex/
-  sites.ts                           # (unchanged - publish/rollback mutations already existed)
+app/globals.css                   # Updated with Festive Air animations and utilities
+lib/theme-tokens.ts               # Updated with Festive Air preset + new fonts
+app/page.tsx                      # Landing page (updated with /demo link)
 ```
 
 ## Key Files
 
 | File | Purpose |
 |---|---|
-| `app/(public)/[slug]/page.tsx` | Public route — reads published data via Convex query |
-| `components/dashboard/publish-controls.tsx` | Publish/rollback/status UI |
-| `app/(dashboard)/dashboard/sites/[siteId]/page.tsx` | Editor with publish controls in header |
-| `convex/sites.ts` | Backend mutations: publish, rollback |
-| `components/public/public-page.tsx` | Shared page renderer (used by both preview and public) |
+| `app/(public)/demo/page.tsx` | Full Festive Air birthday celebration page |
+| `app/globals.css` | CSS animations (float, shimmer, reveal, bloom) + utilities |
+| `lib/theme-tokens.ts` | Festive Air theme preset with exact design tokens |
+| `stitch_blush_birthday_celebration/` | Source design files |

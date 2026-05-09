@@ -4,6 +4,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
 import { PublicPage } from "@/components/public/public-page";
+import { Skeleton } from "@/components/ui/skeleton";
 import { DEFAULT_THEME } from "@/lib/theme-tokens";
 
 export default function PublicSlugPage() {
@@ -19,10 +20,19 @@ export default function PublicSlugPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center space-y-2">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent mx-auto" />
-          <p className="text-sm text-muted-foreground">Loading...</p>
+      <div className="min-h-screen">
+        <Skeleton className="h-[60vh] w-full" />
+        <div className="max-w-4xl mx-auto px-6 py-12 space-y-6">
+          <Skeleton className="h-8 w-3/4 mx-auto" />
+          <Skeleton className="h-4 w-2/3 mx-auto" />
+          <Skeleton className="h-4 w-1/2 mx-auto" />
+        </div>
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <div className="grid grid-cols-3 gap-4">
+            <Skeleton className="h-48 rounded-lg" />
+            <Skeleton className="h-48 rounded-lg" />
+            <Skeleton className="h-48 rounded-lg" />
+          </div>
         </div>
       </div>
     );
@@ -46,9 +56,25 @@ export default function PublicSlugPage() {
   const theme = data?.theme ?? DEFAULT_THEME;
 
   return (
-    <PublicPage
-      sections={sections}
-      theme={theme}
-    />
+    <>
+      <title>{site.title}</title>
+      <meta
+        name="description"
+        content={site.description || `${site.title} — A romantic microsite`}
+      />
+      <meta property="og:title" content={site.title} />
+      <meta
+        property="og:description"
+        content={site.description || `${site.title} — A romantic microsite`}
+      />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={site.title} />
+      <meta
+        name="twitter:description"
+        content={site.description || `${site.title} — A romantic microsite`}
+      />
+      <PublicPage sections={sections} theme={theme} />
+    </>
   );
 }

@@ -19,8 +19,8 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
 import { GripVertical, Eye, EyeOff, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -183,19 +183,19 @@ export function SectionManager({
     const newIndex = sectionIds.indexOf(over.id as string);
     const newOrder = arrayMove(sectionIds, oldIndex, newIndex);
 
-    reorderSections({ siteId: siteId as any, sectionIds: newOrder });
+    reorderSections({ siteId: siteId as Id<"sites">, sectionIds: newOrder });
   }
 
   function handleAdd(type: SectionType) {
-    addSection({ siteId: siteId as any, type });
+    addSection({ siteId: siteId as Id<"sites">, type });
   }
 
   function handleDelete(sectionId: string) {
-    removeSection({ siteId: siteId as any, sectionId });
+    removeSection({ siteId: siteId as Id<"sites">, sectionId });
   }
 
   function handleToggleVisibility(sectionId: string) {
-    toggleVisibility({ siteId: siteId as any, sectionId });
+    toggleVisibility({ siteId: siteId as Id<"sites">, sectionId });
   }
 
   return (
@@ -206,6 +206,11 @@ export function SectionManager({
           <span className="text-xs text-muted-foreground">{sorted.length}</span>
         </div>
         <SectionTypePicker onAdd={handleAdd} />
+        <div className="mt-2 text-xs text-muted-foreground">
+          <span>↑↓ to reorder</span>
+          <span className="mx-1">•</span>
+          <span>Enter to edit</span>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-2">

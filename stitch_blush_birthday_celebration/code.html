@@ -1,0 +1,599 @@
+<html class="light scroll-smooth" lang="en"><head></head><body class="bg-background text-on-background font-body-md text-body-md min-h-screen flex flex-col overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">```html
+
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Happy Birthday, Beautiful!</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#4f4e46",
+                        "on-secondary-container": "#795d08",
+                        "tertiary-container": "#c2bfb5",
+                        "primary-fixed": "#ffd9de",
+                        "tertiary": "#605e56",
+                        "inverse-on-surface": "#f4eeff",
+                        "surface-container-high": "#ece4ff",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#874e58",
+                        "surface-dim": "#ded4ff",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#514345",
+                        "on-tertiary-fixed": "#1c1c15",
+                        "surface-container-highest": "#e6deff",
+                        "secondary": "#765a05",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#d6c2c3",
+                        "error": "#ba1a1a",
+                        "surface": "#fdf8ff",
+                        "background": "#fdf8ff",
+                        "outline": "#847375",
+                        "inverse-surface": "#32285f",
+                        "surface-variant": "#e6deff",
+                        "secondary-container": "#ffd87c",
+                        "on-secondary-fixed-variant": "#5a4400",
+                        "primary-container": "#f4acb7",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#e7c268",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#cac6bc",
+                        "on-primary-container": "#733d47",
+                        "surface-container-low": "#f7f1ff",
+                        "on-surface": "#1c1149",
+                        "primary": "#874e58",
+                        "surface-container": "#f1ebff",
+                        "tertiary-fixed": "#e6e2d8",
+                        "on-background": "#1c1149",
+                        "on-primary-fixed-variant": "#6b3741",
+                        "on-tertiary-fixed-variant": "#48473f",
+                        "inverse-primary": "#fcb3be",
+                        "primary-fixed-dim": "#fcb3be",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#fdf8ff",
+                        "on-secondary-fixed": "#251a00",
+                        "secondary-fixed": "#ffdf96",
+                        "on-primary-fixed": "#360c17"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "margin": "32px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Epilogue"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Epilogue"],
+                        "headline-sm": ["Epilogue"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+  @keyframes shimmer {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+    50% { transform: scale(1.2) rotate(15deg); opacity: 1; }
+  }
+  .animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-subtle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+  }
+  .animate-pulse-subtle {
+    animation: pulse-subtle 3s ease-in-out infinite;
+  }
+  
+  @keyframes surprise-pop {
+    0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+  }
+  .animate-surprise {
+    animation: surprise-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
+  /* Reveal Animations */
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in-scale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .reveal {
+    opacity: 0;
+  }
+  .reveal.active {
+    animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .reveal-scale.active {
+    animation: fade-in-scale 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  /* Floating Animation */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  .animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+
+  /* Stagger Delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  
+  /* Section Transitions */
+  .soft-gradient-top {
+      background: linear-gradient(to bottom, rgba(253, 248, 255, 0) 0%, rgba(253, 248, 255, 1) 100%);
+  }
+  .soft-gradient-bottom {
+      background: linear-gradient(to top, rgba(253, 248, 255, 0) 0%, rgba(253, 248, 255, 1) 100%);
+  }
+  
+  .parallax-bg {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+  
+  /* Interactive Bloom */
+  @keyframes bloom {
+    0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+    50% { transform: scale(1.2) rotate(10deg); opacity: 0.8; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .bloom-active {
+    animation: bloom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal, .reveal-scale').forEach(el => {
+      observer.observe(el);
+    });
+    
+    // Parallax effect for specific elements
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        document.querySelectorAll('.parallax-element').forEach(el => {
+            const speed = el.dataset.speed || 0.1;
+            el.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+    
+    // Interactive Bloom logic
+    const bloomTrigger = document.getElementById('bloom-trigger');
+    const bloomItems = document.querySelectorAll('.bloom-item');
+    if(bloomTrigger) {
+        bloomTrigger.addEventListener('click', () => {
+            bloomItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.remove('hidden');
+                    item.classList.add('bloom-active');
+                }, index * 150);
+            });
+            bloomTrigger.style.opacity = '0';
+            bloomTrigger.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                bloomTrigger.classList.add('hidden');
+                document.getElementById('reveal-btn-container').classList.remove('hidden');
+                document.getElementById('reveal-btn-container').classList.add('reveal', 'active');
+            }, 800);
+        });
+    }
+  });
+</script>
+<!-- 1. Navigation / Floating Header -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-primary-fixed/20 shadow-[0_4px_30px_rgba(244,172,183,0.1)] transition-all duration-300">
+<div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+<div class="text-2xl font-bold text-primary font-['Epilogue'] tracking-tight hover:scale-105 transition-transform duration-300 cursor-pointer">
+                Happy Birthday!
+            </div>
+<nav class="hidden md:flex gap-10">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-['Epilogue'] tracking-tight text-sm uppercase tracking-wider relative group" href="#our-story">
+                    Our Story
+                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-['Epilogue'] tracking-tight text-sm uppercase tracking-wider relative group" href="#photo-gallery">
+                    Moments
+                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-['Epilogue'] tracking-tight text-sm uppercase tracking-wider relative group" href="#gift-board">
+                    Love Notes
+                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hover:scale-110 hover:bg-primary-fixed/30 transition-all duration-300 p-2.5 rounded-full text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button class="hidden md:block bg-gradient-to-r from-primary-container to-primary-fixed text-on-primary-container font-label-md text-label-md px-6 py-3 rounded-full hover:scale-105 transition-all duration-300 shadow-[0_4px_15px_rgba(244,172,183,0.3)] hover:shadow-[0_6px_20px_rgba(244,172,183,0.5)]">
+                    Send Love
+                </button>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- 2. Hero Intro -->
+<section class="min-h-[90vh] pt-32 pb-20 px-6 flex flex-col items-center text-center justify-center relative overflow-hidden">
+<!-- Soft ambient background blobs -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary-fixed/20 blur-[100px] animate-pulse-subtle"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-secondary-fixed/20 blur-[120px] animate-pulse-subtle" style="animation-delay: 1.5s;"></div>
+</div>
+<div class="relative inline-block mb-8 reveal mt-10">
+<h1 class="font-headline-lg text-[64px] md:text-[80px] leading-[1.1] text-primary max-w-4xl relative z-10 tracking-tight font-['Epilogue']">Happy Birthday,<br/><span class="italic font-light text-surface-tint">Beautiful!</span></h1>
+<span class="material-symbols-outlined absolute -top-8 -left-10 text-secondary-fixed-dim text-3xl rotate-12 animate-shimmer" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="material-symbols-outlined absolute -bottom-4 -right-12 text-secondary-fixed-dim text-4xl -rotate-12 animate-shimmer delay-100" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-lg text-xl text-on-surface-variant max-w-2xl mb-16 reveal delay-100 leading-relaxed font-light">
+                Celebrating another incredible year of you. Here's to all the memories we've made and the beautiful moments yet to come. You make every day brighter.
+            </p>
+<div class="w-full max-w-5xl relative h-[60vh] min-h-[400px] rounded-[2rem] overflow-hidden shadow-[0_20px_60px_rgba(244,172,183,0.25)] reveal-scale delay-200">
+<img alt="A beautiful, joyful woman laughing surrounded by soft pink balloons and warm golden hour light." class="w-full h-full object-cover parallax-element" data-speed="0.15" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG6bUEIpQmK2f7iQ8KkxWVfli2qeXci8d7UQA743QfFzZF9WzYg_tP2EWpR7gDaxwxK3ebxI63ALFAwU_amqmW9V6-cP5SVKA3Sly3gN98ntQb66s7L4rI_nRq9XhgjwveGZx0WDMvtMWpL1Nkph5aTjcepHHGofP9687wThKfPJXTp4WVf4uFp7N5NDGfMQahUoMc0lFQOWq-76g5fQ4UWDXYX4Gu9tMEMuWyYlrLWuTE6s-xI0IXNDwUGPxTA-z_R-A2ruV8wiLN"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-tint/30 to-transparent"></div>
+</div>
+<!-- Scroll indicator -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 reveal delay-500 animate-float">
+<span class="text-on-surface-variant/60 font-label-md text-xs uppercase tracking-widest">Scroll to explore</span>
+<span class="material-symbols-outlined text-primary/60 animate-bounce">expand_more</span>
+</div>
+</section>
+<!-- Wave Divider to Opening Transition -->
+<div class="w-full overflow-hidden leading-none relative -mb-1 z-10">
+<svg class="relative block w-full h-[100px]" data-name="Layer 1" preserveaspectratio="none" viewbox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+<path class="fill-surface-container-low" d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.93,197.36,108.14Z"></path>
+</svg>
+</div>
+<!-- 3. Opening Transition Scene -->
+<section class="py-32 px-6 bg-surface-container-low relative overflow-hidden flex items-center justify-center min-h-[60vh]">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dust.png')] opacity-20 mix-blend-overlay"></div>
+<!-- Floating soft elements -->
+<div class="absolute top-10 right-20 w-32 h-32 bg-primary-fixed/30 rounded-full blur-2xl animate-float-slow"></div>
+<div class="absolute bottom-10 left-20 w-40 h-40 bg-secondary-fixed/30 rounded-full blur-2xl animate-float" style="animation-delay: 2s;"></div>
+<div class="max-w-3xl mx-auto text-center relative z-10 reveal">
+<span class="material-symbols-outlined text-4xl text-primary/40 mb-6 block" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<h2 class="font-headline-md text-4xl md:text-5xl text-on-surface leading-tight font-['Epilogue'] mb-8">
+                "Life is a beautiful journey, and every year with you makes the view even more breathtaking."
+            </h2>
+<div class="w-24 h-1 bg-gradient-to-r from-transparent via-primary-container to-transparent mx-auto"></div>
+</div>
+</section>
+<!-- Wave Divider to Story -->
+<div class="w-full overflow-hidden leading-none relative -mb-1 z-10 bg-surface-container-low">
+<svg class="relative block w-full h-[80px]" data-name="Layer 1" preserveaspectratio="none" viewbox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+<path class="fill-surface" d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"></path>
+</svg>
+</div>
+<!-- 4. Our Story Timeline -->
+<section class="py-32 px-6 bg-surface relative" id="our-story">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-24 reveal">
+<span class="text-secondary tracking-[0.2em] font-label-md text-sm uppercase mb-3 block">How It Started</span>
+<h2 class="font-headline-md text-5xl text-primary font-['Epilogue']">Our Journey</h2>
+</div>
+<div class="relative max-w-5xl mx-auto py-10">
+<!-- Vertical Line - Softened -->
+<div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary-fixed to-transparent transform md:-translate-x-1/2"></div>
+<!-- Timeline Item 1 -->
+<div class="relative flex flex-col md:flex-row items-center justify-between mb-32 group reveal">
+<div class="w-full md:w-5/12 pl-20 md:pl-0 md:pr-16 md:text-right mb-8 md:mb-0">
+<span class="text-primary-container font-label-md tracking-wider uppercase text-xs mb-2 block">The Beginning</span>
+<h4 class="font-headline-sm text-3xl text-on-surface mb-4 transition-colors duration-300 font-['Epilogue']">The First Hello</h4>
+<p class="font-body-md text-lg text-on-surface-variant leading-relaxed">That coffee shop by the corner where we talked for hours until they had to close. I knew right then this was something special.</p>
+</div>
+<!-- Soft Dot -->
+<div class="absolute left-6 md:left-1/2 w-6 h-6 rounded-full bg-surface border-[6px] border-primary-container transform -translate-x-1/2 shadow-[0_0_20px_rgba(244,172,183,0.5)] z-10 transition-transform duration-500 group-hover:scale-150"></div>
+<div class="w-full md:w-5/12 pl-20 md:pl-16">
+<div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-[0_20px_50px_rgba(244,172,183,0.2)] border-8 border-surface transition-transform duration-700 group-hover:scale-105 group-hover:rotate-3 relative group-hover:shadow-[0_30px_60px_rgba(244,172,183,0.3)]">
+<img alt="Coffee cups" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZYrG0GqLKLvDdBTZ--FgM20qtJqTirlJb0-mGQm2-nt8psOCKTi0xnRq2MI9rwcUossMXtY3ZS_FKQt9p3sRw6qLuCgKqU8IRsvuAU0AsiR1R8f88P0boDxBPL3CIYXTgPTJ-AkmVlTa-NmILMEFcWsv58Mb7mOK7krkMl1HS-dud-kJE0gjQ5wu4yQ41n5nwpSYJj3LLGcd9t9vttWYmO40huuv5X_Q3CoEI0RhPH6W7Sfa182vXX1CxaoCQK1KaewWx96e-Gwat"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative flex flex-col md:flex-row-reverse items-center justify-between mb-32 group reveal">
+<div class="w-full md:w-5/12 pl-20 md:pl-0 md:pl-16 mb-8 md:mb-0">
+<span class="text-secondary-fixed-dim font-label-md tracking-wider uppercase text-xs mb-2 block">First Adventure</span>
+<h4 class="font-headline-sm text-3xl text-on-surface mb-4 transition-colors duration-300 font-['Epilogue']">Our First Trip</h4>
+<p class="font-body-md text-lg text-on-surface-variant leading-relaxed">Getting lost in the city streets, finding that hidden bakery, and laughing until our sides hurt. The world felt like it was just ours.</p>
+</div>
+<!-- Soft Dot -->
+<div class="absolute left-6 md:left-1/2 w-6 h-6 rounded-full bg-surface border-[6px] border-secondary-container transform -translate-x-1/2 shadow-[0_0_20px_rgba(255,216,124,0.5)] z-10 transition-transform duration-500 group-hover:scale-150"></div>
+<div class="w-full md:w-5/12 pl-20 md:pl-0 md:pr-16 md:flex md:justify-end">
+<div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-[0_20px_50px_rgba(255,216,124,0.2)] border-8 border-surface transition-transform duration-700 group-hover:scale-105 group-hover:-rotate-3 relative group-hover:shadow-[0_30px_60px_rgba(255,216,124,0.3)]">
+<img alt="City street" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdbI2eG9kh0_MjBLUs1ZVIWKwL1BaZeW69ga2_j7jW72ljrGe-Fd6n7SFtQauL1p1LWfcC9OyDu1m3ipylYksXzOymFf9SIMOYEhLCy2NS8Qaa245OHBtBv7kNPnztzLFxqeGkWrn4U-7i9tXgfWu5V8kZn-jPzixcv1u8zdv9tryKL42qdf5GjDfM7uebjTHqa0FmCl8DR9Y8ZrOi6_Pn6tIsVsNjicAQn7RklCEXdxFKuxdTijMVTXetyukcJZP5MrPzeTuNpXE_"/>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative flex flex-col md:flex-row items-center justify-between group reveal">
+<div class="w-full md:w-5/12 pl-20 md:pl-0 md:pr-16 md:text-right mb-8 md:mb-0">
+<span class="text-primary font-label-md tracking-wider uppercase text-xs mb-2 block">The Present</span>
+<h4 class="font-headline-sm text-3xl text-on-surface mb-4 transition-colors duration-300 font-['Epilogue']">Today</h4>
+<p class="font-body-md text-lg text-on-surface-variant leading-relaxed">Celebrating you, the most amazing person I know. And this is just the beautiful beginning of our next chapter together.</p>
+</div>
+<!-- Soft Dot -->
+<div class="absolute left-6 md:left-1/2 w-8 h-8 rounded-full bg-primary border-[4px] border-surface transform -translate-x-1/2 shadow-[0_0_25px_rgba(135,78,88,0.6)] z-10 transition-transform duration-500 group-hover:scale-125 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-white" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="w-full md:w-5/12 pl-20 md:pl-16">
+<div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-[0_20px_50px_rgba(244,172,183,0.3)] border-8 border-surface transition-transform duration-700 group-hover:scale-105 group-hover:rotate-3 relative group-hover:shadow-[0_30px_60px_rgba(244,172,183,0.4)]">
+<img alt="Celebration" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqIJnSbGeR4EE2N7Y-AmEfVOMLOjsRLgd0yqV4Pr-1r1DP6jLug4A_XDj6RZFwDJcQtst8zgN8wor_Yc09oy79jd2YcZLa0BeO6WEC5gK7fjk-UDhhbMga5bsZl9zlexoex_QFdaP7V_Mg3VTEP8lkRGbeOBqSIYf1ov_6QyFawgbsD3Hg9y1_K2qRX4VGv1gNAIFaICXAELtCS3URH7GnFt4UbS-oGiNtwsZdQ-Pd1WpCw9UZS6boz2NR8QolNarsUIP4-uYQEqH9"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Countdown inserted softly here -->
+<section class="py-20 px-6 bg-gradient-to-b from-surface to-surface-container-low" id="countdown">
+<div class="max-w-4xl mx-auto text-center bg-white/50 backdrop-blur-md rounded-[2.5rem] p-12 shadow-[0_8px_30px_rgba(244,172,183,0.1)] border border-primary-fixed/20 reveal">
+<h3 class="font-headline-md text-3xl text-primary mb-12 font-['Epilogue']">We can't wait to celebrate you!</h3>
+<div class="flex flex-wrap justify-center gap-8 md:gap-16">
+<div class="flex flex-col items-center">
+<div class="text-5xl md:text-6xl font-headline-lg text-primary mb-2 font-['Epilogue']">03</div>
+<span class="font-label-md text-xs text-on-surface-variant uppercase tracking-[0.3em]">Days</span>
+</div>
+<div class="w-px h-16 bg-primary-fixed/50 hidden md:block mt-2"></div>
+<div class="flex flex-col items-center">
+<div class="text-5xl md:text-6xl font-headline-lg text-secondary mb-2 font-['Epilogue']">14</div>
+<span class="font-label-md text-xs text-on-surface-variant uppercase tracking-[0.3em]">Hours</span>
+</div>
+<div class="w-px h-16 bg-primary-fixed/50 hidden md:block mt-2"></div>
+<div class="flex flex-col items-center">
+<div class="text-5xl md:text-6xl font-headline-lg text-primary mb-2 font-['Epilogue']">45</div>
+<span class="font-label-md text-xs text-on-surface-variant uppercase tracking-[0.3em]">Mins</span>
+</div>
+<div class="w-px h-16 bg-primary-fixed/50 hidden md:block mt-2"></div>
+<div class="flex flex-col items-center">
+<div class="text-5xl md:text-6xl font-headline-lg text-secondary mb-2 font-['Epilogue']">22</div>
+<span class="font-label-md text-xs text-on-surface-variant uppercase tracking-[0.3em]">Secs</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. Memory Highlights -->
+<section class="py-32 px-6 bg-surface-container-low relative">
+<div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
+<div class="w-full md:w-1/2 reveal-scale">
+<div class="relative rounded-[2rem] overflow-hidden shadow-[0_30px_60px_rgba(244,172,183,0.2)] aspect-[4/5] group">
+<img alt="Celebration toast highlight" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1n5H3_9Bqni8iTZj8ayTXSpVc9Bf3xPWZWVX9Kkk-ze_bmOvEL4PuAYeeViPdfrkfMx5uLnyi9LOvbxYxDCfkpeveMgJrFinSKhUcrsVQWMtgJ1Y_zRmq97GEJYRsPnjza2e8L16bFTcwuPUyl1Mqcmg0i-Cvw54m0oiYn1jReHgTS6UzuZIWRP1p3fnXlOofgAqJETFKWKhS_WCyPJBWafOaoqfawBaC-jLMSBK7oSNtg2Y_X3NwdtNUbcTXZE4Frr3GGfMKLAnZ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+</div>
+</div>
+<div class="w-full md:w-1/2 reveal delay-200">
+<span class="material-symbols-outlined text-secondary-fixed-dim text-4xl mb-6 animate-pulse-subtle" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h2 class="font-headline-lg text-5xl text-primary mb-8 font-['Epilogue'] leading-tight">A Year of<br/>Beautiful Light</h2>
+<p class="font-body-lg text-xl text-on-surface-variant mb-8 leading-relaxed font-light">
+                    This past year has been illuminated by your smile, your warmth, and the incredible way you touch the lives of everyone around you. Here is to the bright light you bring into this world.
+                </p>
+<div class="flex items-center gap-4 text-secondary italic font-body-md">
+<div class="w-12 h-px bg-secondary-fixed"></div>
+<span>Cheers to many more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. Photo Gallery -->
+<section class="py-32 px-6 bg-surface" id="photo-gallery">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-20 reveal">
+<h2 class="font-headline-md text-5xl text-primary font-['Epilogue'] mb-4">Cherished Moments</h2>
+<p class="font-body-md text-on-surface-variant max-w-2xl mx-auto">Snapshots of joy, laughter, and everything in between.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
+<!-- Big Feature (Landscape) -->
+<div class="col-span-2 row-span-2 overflow-hidden rounded-[2rem] shadow-sm group reveal delay-100 hover:shadow-2xl transition-all duration-500 relative">
+<img alt="Celebration balloons" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcP1ACKksR4PRoqZ58HbdzLnSRieRrgbNw4LAHu0VhOiWaTuQQjGLqFIoH4kA6tO4RoruMpCDoIS7HZDFlCLkQZSSEZzx5_tXuEfDU8j1kp2DQ1ktT3OH_pHUZcuwUfZX7l3byoW5As2-7B6Zmq6MbPD08BUUvLhXmIqq-EWzID7XopR6ixR_6twnYsoBFvI2ub2jJejMFDK2WBV3Lkusxkbj10-clTvRwLubkgNEU8pzrkMcHazEc6J_rNgBjiRjsn11Zvt_6S-zS"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</div>
+<!-- Portrait -->
+<div class="col-span-1 row-span-2 overflow-hidden rounded-[2rem] shadow-sm group reveal delay-200 hover:shadow-2xl transition-all duration-500 relative">
+<img alt="Party lights" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB-ZW3krzJqG6B03-KF5WLBmhC2JtyGXjMLCFw1KJoyGVTMPoqJMNN2bdIyy8X8gNRLvnoMfQJuPfEp0a1Ez3ot3A6zH-hvKTvhPPg7emMFXeMAxDwRokpyfpdXDRfU0RPACzKI6Df-h0RstKgTGvh9eYIorPFTG81AP4eJ-1zdAv2zg1dykGpQ9By6VFhJAFqGyd-ovkDzNBooNdC_zhIMXjADZIfTlRDTwC-9YqP7EBVwKaud_TNCIUCSegNljIwo6shDfzmy0As"/>
+</div>
+<!-- Square 1 -->
+<div class="col-span-1 row-span-1 overflow-hidden rounded-[2rem] shadow-sm group reveal delay-300 hover:shadow-2xl transition-all duration-500 relative">
+<img alt="Birthday cake" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9wFiO6b_X9jrkvBvnFc_HJkvXzS5ZlHLFqUd6n4ZpM7wYrrupKeHGh8orym5yQZHFWWLKVvTLJMrQNdm5ZFDdTPh_2ptQ7lm66yea_TR1BtGKzFGZ9fPxTooHFbWA6ey1xn9MiY_xRzfvb7hbguWj6pbQdeJ9PCV2v2SJOBrSIk3rRtb1xqBH7vbCFS3JEmQkDUByrk93bP-B20vGgEY9TFaBj-zwg4veWwqcaXfLR6xDIbmbwLt7OqvVkMwfgJY2M9VvRy_RAnON"/>
+</div>
+<!-- Square 2 -->
+<div class="col-span-1 row-span-1 overflow-hidden rounded-[2rem] shadow-sm group reveal delay-400 hover:shadow-2xl transition-all duration-500 relative">
+<img alt="Happy friends" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYpJZ6FUR80WwACBIYJbF-3X3u_DK4ZS2N6sDWQGMKw810NTIJMcA8ZqxL5uW4_cYvGBMyuNNsLqD90NLGz_44TWgIrhcJa800UClvx2OraTgohBuFbXxeJLWhLBINJoz4jqAHKQi9yrLdHa-OSIJ1SF48hMho9DmKdh3pn1a7QziR9hykNIdx1l4kHyT0xxZ9_JjVTqKXuf2GKlIvMe_S8PCZXfHncwoF3rLrexR6NBnQkps0SDNmQEeq1-j-cW-UYOG9Z6H8AJmI"/>
+</div>
+<!-- Small Landscape -->
+<div class="col-span-2 row-span-1 overflow-hidden rounded-[2rem] shadow-sm group reveal delay-100 hover:shadow-2xl transition-all duration-500 relative">
+<img alt="Happy moment" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdSOH6mnv1Ljv6qhXQsYfZ2RWJTIC13R3J8AmpJPHD7SZ4Rr7v5BH1dUfs7_Oz3W1snrkzQY9nofatzcp1mBlQXzvgAaW7PIRU5aJ_e48dcCCz5ldR_iuEzLwUdx6byG_mg8dauHyWUKzfJpqpudHEMQd1C9xv4jlWdMEPbYg84m_uWdPdCgLAS-ig0CtXtWmDEqlxf1ucbQVivfosYRNIj-YcMr6HmEA4lK940T59R4uxgPvf-8WIyyQPFnRKv_zdL4vGDg9KCbaA"/>
+</div>
+<!-- Portrait -->
+<div class="col-span-2 row-span-1 overflow-hidden rounded-[2rem] shadow-sm group reveal delay-200 hover:shadow-2xl transition-all duration-500 relative bg-primary-fixed/20 flex items-center justify-center p-8">
+<div class="text-center">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<h3 class="font-headline-sm text-primary font-['Epilogue']">More memories<br/>to be made today</h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Soft Transition Gradient -->
+<div class="h-32 bg-gradient-to-b from-surface to-surface-container-low w-full"></div>
+<!-- 7. Little Notes / Love Notes -->
+<section class="py-24 px-6 bg-surface-container-low" id="gift-board">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-20 reveal">
+<h2 class="font-headline-md text-5xl text-primary font-['Epilogue'] mb-4">Love Notes</h2>
+<p class="font-body-md text-on-surface-variant">Messages from those who adore you.</p>
+</div>
+<div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+<!-- Note 1 -->
+<div class="bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgba(244,172,183,0.05)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(244,172,183,0.15)] transition-all duration-500 reveal break-inside-avoid relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-20 h-20 bg-primary-fixed/30 rounded-bl-[4rem] -z-10 group-hover:scale-110 transition-transform"></div>
+<p class="font-body-lg text-on-surface mb-8 leading-relaxed italic text-lg text-on-surface-variant">"Wishing the happiest of birthdays to my favorite person. You deserve the world and more. Love you always!"</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-label-md text-lg">J</div>
+<span class="font-label-md text-label-md text-primary tracking-wide uppercase">James</span>
+</div>
+</div>
+<!-- Note 2 -->
+<div class="bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgba(244,172,183,0.05)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(244,172,183,0.15)] transition-all duration-500 reveal delay-100 break-inside-avoid relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-20 h-20 bg-primary-fixed/30 rounded-bl-[4rem] -z-10 group-hover:scale-110 transition-transform"></div>
+<p class="font-body-lg text-on-surface mb-8 leading-relaxed italic text-lg text-on-surface-variant">"Can't wait to celebrate you tonight! Get ready for the best night ever. Happy birthday gorgeous!"</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-label-md text-lg">S</div>
+<span class="font-label-md text-label-md text-primary tracking-wide uppercase">Sarah</span>
+</div>
+</div>
+<!-- Note 3 -->
+<div class="bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgba(244,172,183,0.05)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(244,172,183,0.15)] transition-all duration-500 reveal delay-200 break-inside-avoid relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-20 h-20 bg-primary-fixed/30 rounded-bl-[4rem] -z-10 group-hover:scale-110 transition-transform"></div>
+<p class="font-body-lg text-on-surface mb-8 leading-relaxed italic text-lg text-on-surface-variant">"Another year older, another year wiser, and definitely another year more beautiful. Have an amazing day!"</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-dim flex items-center justify-center text-on-surface-variant font-label-md text-lg">M</div>
+<span class="font-label-md text-label-md text-primary tracking-wide uppercase">Mike</span>
+</div>
+</div>
+<!-- Note 4 -->
+<div class="bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgba(244,172,183,0.05)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(244,172,183,0.15)] transition-all duration-500 reveal break-inside-avoid relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-20 h-20 bg-primary-fixed/30 rounded-bl-[4rem] -z-10 group-hover:scale-110 transition-transform"></div>
+<p class="font-body-lg text-on-surface mb-8 leading-relaxed italic text-lg text-on-surface-variant">"Happy birthday to the most radiant soul! May your year ahead be as bright and beautiful as your smile. Cheers to you!"</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-label-md text-lg">C</div>
+<span class="font-label-md text-label-md text-primary tracking-wide uppercase">Chloe</span>
+</div>
+</div>
+<!-- Note 5 -->
+<div class="bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgba(244,172,183,0.05)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(244,172,183,0.15)] transition-all duration-500 reveal delay-100 break-inside-avoid relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-20 h-20 bg-primary-fixed/30 rounded-bl-[4rem] -z-10 group-hover:scale-110 transition-transform"></div>
+<p class="font-body-lg text-on-surface mb-8 leading-relaxed italic text-lg text-on-surface-variant">"To another year of adventures and great memories! Wishing you the best day ever. You're truly one of a kind."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-label-md text-lg">D</div>
+<span class="font-label-md text-label-md text-primary tracking-wide uppercase">Daniel</span>
+</div>
+</div>
+<!-- Note 6 -->
+<div class="bg-white rounded-[2rem] p-8 shadow-[0_4px_20px_rgba(244,172,183,0.05)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(244,172,183,0.15)] transition-all duration-500 reveal delay-200 break-inside-avoid relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-20 h-20 bg-primary-fixed/30 rounded-bl-[4rem] -z-10 group-hover:scale-110 transition-transform"></div>
+<p class="font-body-lg text-on-surface mb-8 leading-relaxed italic text-lg text-on-surface-variant">"Sending you so much love on your special day! You deserve all the happiness in the world. Have a wonderful celebration!"</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-dim flex items-center justify-center text-on-surface-variant font-label-md text-lg">S</div>
+<span class="font-label-md text-label-md text-primary tracking-wide uppercase">Sophia</span>
+</div>
+</div>
+</div>
+<div class="mt-20 text-center reveal delay-300">
+<button class="bg-white border border-primary-container text-primary font-label-md text-sm px-10 py-4 rounded-full hover:bg-primary-container hover:text-on-primary-container hover:-translate-y-1 hover:shadow-xl transition-all duration-300 shadow-md tracking-widest uppercase">
+                        Leave a Note
+                    </button>
+</div>
+</div>
+</section>
+<!-- Wave Divider to Music -->
+<div class="w-full overflow-hidden leading-none relative -mb-1 z-10 bg-surface-container-low">
+<svg class="relative block w-full h-[80px]" data-name="Layer 1" preserveaspectratio="none" viewbox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+<path class="fill-surface-container-high/30" d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.93,197.36,108.14Z"></path>
+</svg>
+</div>
+<!-- 8. Music Moment -->
+<section class="py-24 px-6 bg-surface-container-high/30 relative" id="soundtrack">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-16 reveal">
+<span class="material-symbols-outlined text-primary mb-4 text-3xl" style="font-variation-settings: 'FILL' 1;">music_note</span>
+<h2 class="font-headline-md text-4xl text-primary font-['Epilogue']">Our Soundtrack</h2>
+</div>
+<div class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_50px_rgba(244,172,183,0.1)] flex flex-col md:flex-row gap-12 items-center border border-white reveal delay-100 animate-float-slow">
+<!-- Cover Art -->
+<div class="w-56 h-56 md:w-72 md:h-72 rounded-[2rem] overflow-hidden shadow-2xl flex-shrink-0 relative group">
+<img alt="Album cover" class="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1Kzvwpad-9DH3oB7aQVXKcRO8oAKoOPmRksNbeoXi12I8dRYLNoL0SHSn2HA7hdU9kXHxXvy1NVaEWwfXHGfZkWCGd1h2jbA10cCWyrbkO--VMA85z_dAHccTOMEjt8eGHUJ5rujwmoQ54goyQZsqnYqDdHO_cJnexSXvvGOjnLv4gNpukrV0ODDqQmZevD-bWl5mtHeS3FszAoYUaqJdwD84rbomqAemGL_GaYn0Kw6vuU11d5fSmCPa91Dq0cEGOdQi6LxACuT8"/>
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center text-primary shadow-xl hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Player Controls -->
+<div class="flex-grow w-full">
+<div class="text-center md:text-left mb-8">
+<h4 class="font-headline-sm text-3xl text-on-surface mb-2 font-['Epilogue']">Perfect</h4>
+<p class="font-body-md text-lg text-on-surface-variant">Ed Sheeran</p>
+</div>
+<!-- Progress Bar -->
+<div class="mb-8">
+<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden mb-3">
+<div class="h-full bg-gradient-to-r from-primary to-primary-fixed w-1/3 rounded-full relative">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-primary rounded-full shadow-md"></div>
+</div>
+</div>
+<div class="flex justify-between font-label-md text-xs text-on-surface-variant tracking-wider">
+<span>1:24</span>
+<span>4:23</span>
+</div>
+</div>
+<!-- Controls -->
+<div class="flex items-center justify-center md:justify-start gap-8 mb-10">
+<button class="text-on-surface-variant hover:text-primary hover:scale-110 transition-all">
+<span class="material-symbols-outlined text-2xl">skip_previous</span>
+</button>
+<button class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center shadow-lg hover:scale-110 hover:bg-surface-tint hover:shadow-xl transition-all">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary hover:scale-110 transition-all">
+<span class="material-symbols-outlined text-2xl">skip_next</span>
+</button>
+</div></div></div></div></section></main></body></html>

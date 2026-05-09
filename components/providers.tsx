@@ -1,10 +1,61 @@
 "use client";
 
-import { ConvexProvider, ConvexReactClient } from "convex/react";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
+import { useAuth } from "@clerk/nextjs";
+import { ConvexProviderWithAuth, ConvexReactClient } from "convex/react";
+import { I18nProvider } from "@/i18n/provider";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
+function ConvexClerkBridge({ children }: { children: ReactNode }) {
+  const clerkAuth = useAuth();
+
+  const convexAuth = useMemo(
+    () => ({
+      isLoading: !clerkAuth.isLoaded,
+      isAuthenticated: clerkAuth.isSignedIn ?? false,
+      fetchAccessToken: async ({
+        forceRefreshToken,
+      }: {
+        forceRefreshToken?: boolean;
+      }) => {
+        if (!clerkAuth.isSignedIn) return null;
+        try {
+          const token = await clerkAuth.getToken({
+            template: "convex",
+            skipCache: forceRefreshToken,
+          });
+          return token ?? null;
+        } catch (err) {
+          console.error("[Convex Auth] Failed to fetch access token:", err);
+          return null;
+        }
+      },
+    }),
+    [clerkAuth]
+  );
+
+  return (
+    <ConvexProviderWithAuth client={convex} useAuth={() => convexAuth}>
+      {children}
+    </ConvexProviderWithAuth>
+  );
+}
+
 export function Providers({ children }: { children: ReactNode }) {
-  return <ConvexProvider client={convex}>{children}</ConvexProvider>;
+  return (
+    <ConvexClerkBridge>
+      <I18nProvider>
+        <NextThemesProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </NextThemesProvider>
+      </I18nProvider>
+    </ConvexClerkBridge>
+  );
 }

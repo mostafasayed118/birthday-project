@@ -1,43 +1,16 @@
-import type { SectionType, SectionProps } from "@/lib/types";
-import { HeroSection } from "./hero-section";
-import { MessageSection } from "./message-section";
-import { GallerySection } from "./gallery-section";
-import { TimelineSection } from "./timeline-section";
-import { QuoteSection } from "./quote-section";
-import { CountdownSection } from "./countdown-section";
-import { MapSection } from "./map-section";
-import { DividerSection } from "./divider-section";
-import { SpacerSection } from "./spacer-section";
-import { StatsSection } from "./stats-section";
-import { FooterSection } from "./footer-section";
-import { VideoSection } from "./video-section";
-import { AudioSection } from "./audio-section";
+import type { SectionType } from "@/lib/types";
+import { initializeRegistry, getPublicRenderer, getAllSectionTypes } from "@/lib/section-registry";
+import "@/lib/section-entries";
 
-const SECTION_COMPONENTS: Record<
-  SectionType,
-  React.ComponentType<SectionProps>
-> = {
-  hero: HeroSection,
-  message: MessageSection,
-  gallery: GallerySection,
-  timeline: TimelineSection,
-  quote: QuoteSection,
-  countdown: CountdownSection,
-  map: MapSection,
-  divider: DividerSection,
-  spacer: SpacerSection,
-  stats: StatsSection,
-  footer: FooterSection,
-  video: VideoSection,
-  audio: AudioSection,
-};
+// Initialize registry (dynamic import handled in registry)
+initializeRegistry();
 
 export function getSectionComponent(type: SectionType) {
-  return SECTION_COMPONENTS[type] || FallbackPlaceholder;
+  return getPublicRenderer(type) || FallbackPlaceholder;
 }
 
 export function getRegisteredSectionTypes(): SectionType[] {
-  return Object.keys(SECTION_COMPONENTS) as SectionType[];
+  return getAllSectionTypes();
 }
 
 function FallbackPlaceholder() {

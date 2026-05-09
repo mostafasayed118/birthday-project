@@ -3,10 +3,10 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -121,24 +121,27 @@ function SliderControl({
 
 export function ThemeEditor({ siteId, theme }: ThemeEditorProps) {
   const updateTheme = useMutation(api.themes.updateTheme);
-  const applyPreset = useMutation(api.themes.applyPreset);
 
   const [localTheme, setLocalTheme] = useState<ThemeData>(theme);
   const [activePreset, setActivePreset] = useState<string | null>(() =>
     findMatchingPreset(theme)
   );
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const prevThemeRef = useRef<ThemeData>(theme);
 
   useEffect(() => {
-    setLocalTheme(theme);
-    setActivePreset(findMatchingPreset(theme));
+    if (prevThemeRef.current !== theme) {
+      setLocalTheme(theme);
+      setActivePreset(findMatchingPreset(theme));
+      prevThemeRef.current = theme;
+    }
   }, [theme]);
 
   const persistTheme = useCallback(
     (newTheme: ThemeData) => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {
-        updateTheme({ siteId: siteId as any, theme: newTheme });
+        updateTheme({ siteId: siteId as Id<"sites">, theme: newTheme });
       }, 300);
     },
     [siteId, updateTheme]
@@ -176,13 +179,13 @@ export function ThemeEditor({ siteId, theme }: ThemeEditorProps) {
     if (!preset) return;
     setLocalTheme(preset);
     setActivePreset(presetId);
-    updateTheme({ siteId: siteId as any, theme: preset });
+    updateTheme({ siteId: siteId as Id<"sites">, theme: preset });
   }
 
   function handleResetToDefault() {
     setLocalTheme(DEFAULT_THEME);
     setActivePreset(findMatchingPreset(DEFAULT_THEME));
-    updateTheme({ siteId: siteId as any, theme: DEFAULT_THEME });
+    updateTheme({ siteId: siteId as Id<"sites">, theme: DEFAULT_THEME });
   }
 
   return (
@@ -207,7 +210,7 @@ export function ThemeEditor({ siteId, theme }: ThemeEditorProps) {
         {/* Preset Selector */}
         <div className="space-y-3">
           <h4 className="text-sm font-medium">Presets</h4>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {Object.entries(PRESET_LABELS).map(([id, label]) => (
               <button
                 key={id}

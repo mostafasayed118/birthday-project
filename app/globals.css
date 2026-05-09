@@ -3,6 +3,10 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+ 
+nextjs-portal {
+  display: none !important;
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -46,6 +50,27 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-on-background: var(--on-background);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-surface: var(--surface-color);
+  --color-surface-tint: var(--surface-tint);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-variant: var(--surface-variant);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-primary-fixed: var(--primary-fixed);
+  --color-primary-fixed-dim: var(--primary-fixed-dim);
+  --color-secondary-container: var(--secondary-container);
+  --color-on-secondary-container: var(--on-secondary-container);
+  --color-secondary-fixed: var(--secondary-fixed);
+  --color-secondary-fixed-dim: var(--secondary-fixed-dim);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
 }
 
 :root {
@@ -125,6 +150,206 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+}
+
+/* Festive Air Animations */
+@keyframes shimmer {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+  50% { transform: scale(1.2) rotate(15deg); opacity: 1; }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes surprise-pop {
+  0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-scale {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes bloom {
+  0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+  50% { transform: scale(1.2) rotate(10deg); opacity: 0.8; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.active {
+  animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-scale {
+  opacity: 0;
+}
+
+.reveal-scale.active {
+  animation: fade-in-scale 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.bloom-active {
+  animation: bloom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Festive Air Custom Utilities */
+.festive-shadow {
+  box-shadow: 0 4px 20px rgba(244, 172, 183, 0.1);
+}
+
+.festive-shadow-lg {
+  box-shadow: 0 20px 60px rgba(244, 172, 183, 0.25);
+}
+
+.festive-shadow-glow {
+  box-shadow: 0 0 20px rgba(244, 172, 183, 0.5);
+}
+
+.festive-glass {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.festive-glass-strong {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.festive-card-shadow {
+  box-shadow: 0 4px 20px rgba(244, 172, 183, 0.05);
+}
+
+.festive-card-shadow-hover {
+  box-shadow: 0 20px 40px rgba(244, 172, 183, 0.15);
+}
+
+.festive-gradient-btn {
+  background: linear-gradient(to right, #f4acb7, #ffd9de);
+}
+
+/* Festive Air Theme Scope — overrides all CSS custom properties for the demo page */
+.festive-air-theme {
+  --primary: #874e58;
+  --primary-foreground: #ffffff;
+  --secondary: #765a05;
+  --secondary-foreground: #ffffff;
+  --background: #fdf8ff;
+  --foreground: #1c1149;
+  --card: #ffffff;
+  --card-foreground: #1c1149;
+  --popover: #ffffff;
+  --popover-foreground: #1c1149;
+  --muted: #f2e8ed;
+  --muted-foreground: #514345;
+  --accent: #ffd87c;
+  --accent-foreground: #1c1149;
+  --destructive: #ba1a1a;
+  --border: #f4acb7;
+  --input: #f4acb7;
+  --ring: #874e58;
+
+  --on-background: #1c1149;
+  --on-surface: #1c1149;
+  --on-surface-variant: #3d3234; /* Darker for better contrast */
+  --surface-color: #ffffff;
+  --surface-tint: #874e58;
+  --surface-dim: #e8dce1;
+  --surface-variant: #f4acb730;
+  --surface-container: #f8f0f5;
+  --surface-container-low: #fdf8ff;
+  --surface-container-high: #f2e8ed;
+  --primary-container: #ffd9df;
+  --on-primary-container: #3a0b14;
+  --primary-fixed: #ffd9df;
+  --primary-fixed-dim: #c98e98;
+  --secondary-container: #ffebb3;
+  --on-secondary-container: #2b1a00;
+  --secondary-fixed: #ffe0b2;
+  --secondary-fixed-dim: #b89a3e;
+  --outline: #8a7072;
+  --outline-variant: #d9c0c2;
+}
+
+/* Responsive Section Spacing */
+@layer utilities {
+  section {
+    @apply py-20 md:py-32;
+  }
+}
+
+/* Ensure no horizontal overflow from decorative elements */
+body {
+  @apply overflow-x-hidden w-full;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-shimmer,
+  .animate-pulse-subtle,
+  .animate-float,
+  .animate-float-slow {
+    animation: none;
+  }
+  .reveal,
+  .reveal-scale {
+    opacity: 1;
+  }
+  .reveal.active,
+  .reveal-scale.active {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
   }
 }

@@ -1,14 +1,27 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { DEFAULT_THEME } from "../lib/theme-tokens";
-import { getDefaultSections } from "../lib/constants";
+import { OCCASION_TEMPLATES } from "./occasion_sections";
+import { SiteSettings } from "./validators";
+
+function generateSectionsForOccasion(occasionType: string) {
+  const template = OCCASION_TEMPLATES[occasionType] || OCCASION_TEMPLATES.custom;
+  return template.map((s, i) => ({
+    id: crypto.randomUUID(),
+    type: s.type,
+    visible: s.visible,
+    order: i,
+    content: s.content,
+    settings: {},
+  }));
+}
 
 export const getBySlug = query({
   args: { slug: v.string() },
   handler: async (ctx, args) => {
     const site = await ctx.db
       .query("sites")
-      .withIndex("by_slug", (q: any) => q.eq("slug", args.slug))
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
       .unique();
 
     if (!site || site.status !== "published" || !site.publishedData) {
@@ -47,7 +60,7 @@ export const listByOwner = query({
 
     const sites = await ctx.db
       .query("sites")
-      .withIndex("by_owner", (q: any) => q.eq("ownerId", identity.subject))
+      .withIndex("by_owner", (q) => q.eq("ownerId", identity.subject))
       .order("desc")
       .collect();
 
@@ -75,7 +88,7 @@ export const create = mutation({
 
     const existing = await ctx.db
       .query("sites")
-      .withIndex("by_slug", (q: any) => q.eq("slug", args.slug))
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
       .unique();
 
     if (existing) {
@@ -83,7 +96,7 @@ export const create = mutation({
     }
 
     const now = Date.now();
-    const sections = getDefaultSections(args.occasionType);
+    const sections = generateSectionsForOccasion(args.occasionType);
 
     const siteId = await ctx.db.insert("sites", {
       ownerId: identity.subject,
@@ -198,5 +211,40 @@ export const remove = mutation({
       status: "archived",
       updatedAt: Date.now(),
     });
+  },
+});
+
+export const updateSiteSettings = mutation({
+  args: {
+    siteId: v.id("sites"),
+    settings: SiteSettings,
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Not authenticated");
+
+    const site = await ctx.db.get(args.siteId);
+    if (!site || site.ownerId !== identity.subject) {
+      throw new Error("Site not found or not authorized");
+    }
+
+    await ctx.db.patch(args.siteId, {
+      draftData: { ...site.draftData, settings: args.settings },
+      updatedAt: Date.now(),
+    });
+  },
+});
+
+export const checkSlugUnique = query({
+  args: { slug: v.string(), excludeSiteId: v.optional(v.id("sites")) },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("sites")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .unique();
+
+    if (!existing) return true;
+    if (args.excludeSiteId && existing._id === args.excludeSiteId) return true;
+    return false;
   },
 });

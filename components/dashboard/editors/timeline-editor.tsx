@@ -11,6 +11,7 @@ import {
   RemoveItemButton,
   EmptyState,
 } from "./fields";
+import { ImageUpload } from "../image-upload";
 
 interface TimelineEditorProps {
   content: SectionContent;
@@ -130,11 +131,10 @@ export function TimelineEditor({ content, onUpdate }: TimelineEditorProps) {
                   rows={2}
                 />
 
-                <TextField
-                  label="Image URL"
+                <ImageUpload
+                  label="Event Image"
                   value={event.image || ""}
                   onChange={(v) => updateEvent(index, { image: v })}
-                  placeholder="Optional image URL"
                 />
               </div>
             ))}

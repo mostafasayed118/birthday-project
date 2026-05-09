@@ -43,6 +43,7 @@ export function MessageEditor({ content, onUpdate }: MessageEditorProps) {
         <SelectField
           label="Alignment"
           value={c.alignment}
+          defaultValue="center"
           onValueChange={(v) =>
             update({ alignment: v as "left" | "center" | "right" })
           }
@@ -56,6 +57,7 @@ export function MessageEditor({ content, onUpdate }: MessageEditorProps) {
         <SelectField
           label="Font Style"
           value={c.fontStyle}
+          defaultValue="default"
           onValueChange={(v) =>
             update({ fontStyle: v as "default" | "handwritten" | "elegant" })
           }
