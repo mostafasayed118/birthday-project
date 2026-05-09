@@ -6,7 +6,11 @@ import { ConvexProviderWithAuth, ConvexReactClient } from "convex/react";
 import { I18nProvider } from "@/i18n/provider";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+if (!convexUrl) {
+  throw new Error("NEXT_PUBLIC_CONVEX_URL is not configured. Please set it in your environment variables.");
+}
+const convex = new ConvexReactClient(convexUrl);
 
 function ConvexClerkBridge({ children }: { children: ReactNode }) {
   const clerkAuth = useAuth();
