@@ -208,58 +208,59 @@ const TIMELINE_IMAGE_SHADOWS = ["shadow-[0_20px_50px_rgba(244,172,183,0.2)]", "s
 const TIMELINE_IMAGE_HOVER_SHADOWS = ["group-hover:shadow-[0_30px_60px_rgba(244,172,183,0.3)]", "group-hover:shadow-[0_30px_60px_rgba(255,216,124,0.3)]", "group-hover:shadow-[0_30px_60px_rgba(244,172,183,0.4)]"];
 
 function TimelineSection() {
-  const events = (TIMELINE_SECTION_DATA.content as TimelineContent).events;
-  return (
-    <section className="py-32 px-6 bg-surface relative" id="our-story">
-      <div className="max-w-[1200px] mx-auto">
-        <Reveal>
-          <div className="text-center mb-24">
-            <span className="text-secondary tracking-[0.2em] font-label-md text-sm uppercase mb-3 block">How It Started</span>
-            <h2 className="font-headline-md text-5xl text-primary font-['Epilogue']">{TIMELINE_HEADING}</h2>
-          </div>
-        </Reveal>
-        <div className="relative max-w-5xl mx-auto py-10">
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary-fixed to-transparent transform md:-translate-x-1/2" />
-          {events.map((event, index) => {
-            const isLast = index === events.length - 1;
-            return (
-              <Reveal key={event.id}>
-                <div className={`relative flex flex-col md:flex-row ${index % 2 === 0 ? "" : "md:flex-row-reverse"} items-center justify-between mb-24 md:mb-32 group`}>
-                  <div className={`w-full md:w-5/12 ps-16 md:ps-0 ${index % 2 === 0 ? "md:pe-16 md:text-right rtl:md:text-left" : "md:ps-16"} mb-8 md:mb-0`}>
-                    <span className={`${TIMELINE_LABEL_COLORS[index]} font-label-md tracking-wider uppercase text-xs mb-2 block`}>
-                      {index === 0 ? "The Beginning" : index === 1 ? "First Adventure" : "The Present"}
-                    </span>
-                    <h4 className="font-headline-sm text-2xl md:text-3xl text-on-surface mb-4 transition-colors duration-300 font-['Epilogue']">{event.title}</h4>
-                    <p className="font-body-md text-base md:text-lg text-on-surface-variant leading-relaxed">{event.description}</p>
-                  </div>
-                  {isLast ? (
-                    <div className="absolute start-6 md:start-1/2 w-8 h-8 rounded-full bg-primary border-[4px] border-surface transform -translate-x-1/2 rtl:translate-x-1/2 shadow-[0_0_25px_rgba(135,78,88,0.6)] z-10 transition-transform duration-500 group-hover:scale-125 flex items-center justify-center">
-                      <MatIcon name="favorite" className="text-[14px] text-white" />
-                    </div>
-                  ) : (
-                    <div className={`absolute start-6 md:start-1/2 w-6 h-6 rounded-full bg-surface border-[6px] ${TIMELINE_DOT_BORDERS[index]} transform -translate-x-1/2 rtl:translate-x-1/2 ${TIMELINE_DOT_SHADOWS[index]} z-10 transition-transform duration-500 group-hover:scale-150`} />
-                  )}
-                  <div className={`w-full md:w-5/12 ps-16 md:ps-16 ${index % 2 !== 0 ? "md:ps-0 md:pe-16 md:flex md:justify-end" : ""}`}>
-                    <div className={`w-40 h-40 md:w-64 md:h-64 rounded-full overflow-hidden ${TIMELINE_IMAGE_SHADOWS[index]} border-8 border-surface transition-all duration-700 group-hover:scale-105 ${index % 2 === 0 ? "group-hover:rotate-3" : "group-hover:-rotate-3"} relative ${TIMELINE_IMAGE_HOVER_SHADOWS[index]}`}>
-                      {event.image ? (
-                        <img alt={event.title} className="w-full h-full object-cover" src={event.image} />
-                      ) : (
-                        <div className="w-full h-full bg-surface-container-low flex items-center justify-center">
-                          <MatIcon name="photo" className="text-4xl text-on-surface-variant/30" decorative />
-                        </div>
-                      )}
-                      <div className={`absolute inset-0 ${TIMELINE_HOVER_COLORS[index]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
+   const events = (TIMELINE_SECTION_DATA.content as TimelineContent).events;
+   return (
+     <section className="py-32 px-6 bg-surface relative" id="our-story">
+       <div className="max-w-[1200px] mx-auto">
+         <Reveal>
+           <div className="text-center mb-24">
+             <span className="text-secondary tracking-[0.2em] font-label-md text-sm uppercase mb-3 block">How It Started</span>
+             <h2 className="font-headline-md text-5xl text-primary font-['Epilogue']">{TIMELINE_HEADING}</h2>
+           </div>
+         </Reveal>
+         <div className="relative max-w-5xl mx-auto py-10">
+           <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary-fixed to-transparent transform md:-translate-x-1/2" />
+           {events.map((event, index) => {
+             const i = index % 3;
+             const isLast = index === events.length - 1;
+             return (
+               <Reveal key={event.id}>
+                 <div className={`relative flex flex-col md:flex-row ${index % 2 === 0 ? "" : "md:flex-row-reverse"} items-center justify-between mb-24 md:mb-32 group`}>
+                   <div className={`w-full md:w-5/12 ps-16 md:ps-0 ${index % 2 === 0 ? "md:pe-16 md:text-right rtl:md:text-left" : "md:ps-16"} mb-8 md:mb-0`}>
+                     <span className={`${TIMELINE_LABEL_COLORS[i]} font-label-md tracking-wider uppercase text-xs mb-2 block`}>
+                       {index === 0 ? "The Beginning" : index === 1 ? "First Adventure" : "The Present"}
+                     </span>
+                     <h4 className="font-headline-sm text-2xl md:text-3xl text-on-surface mb-4 transition-colors duration-300 font-['Epilogue']">{event.title}</h4>
+                     <p className="font-body-md text-base md:text-lg text-on-surface-variant leading-relaxed">{event.description}</p>
+                   </div>
+                   {isLast ? (
+                     <div className="absolute start-6 md:start-1/2 w-8 h-8 rounded-full bg-primary border-[4px] border-surface transform -translate-x-1/2 rtl:translate-x-1/2 shadow-[0_0_25px_rgba(135,78,88,0.6)] z-10 transition-transform duration-500 group-hover:scale-125 flex items-center justify-center">
+                       <MatIcon name="favorite" className="text-[14px] text-white" />
+                     </div>
+                   ) : (
+                     <div className={`absolute start-6 md:start-1/2 w-6 h-6 rounded-full bg-surface border-[6px] ${TIMELINE_DOT_BORDERS[i]} transform -translate-x-1/2 rtl:translate-x-1/2 ${TIMELINE_DOT_SHADOWS[i]} z-10 transition-transform duration-500 group-hover:scale-150`} />
+                   )}
+                   <div className={`w-full md:w-5/12 ps-16 md:ps-16 ${index % 2 !== 0 ? "md:ps-0 md:pe-16 md:flex md:justify-end" : ""}`}>
+                     <div className={`w-40 h-40 md:w-64 md:h-64 rounded-full overflow-hidden ${TIMELINE_IMAGE_SHADOWS[i]} border-8 border-surface transition-all duration-700 group-hover:scale-105 ${index % 2 === 0 ? "group-hover:rotate-3" : "group-hover:-rotate-3"} relative ${TIMELINE_IMAGE_HOVER_SHADOWS[i]}`}>
+                       {event.image ? (
+                         <img alt={event.title} className="w-full h-full object-cover" src={event.image} />
+                       ) : (
+                         <div className="w-full h-full bg-surface-container-low flex items-center justify-center">
+                           <MatIcon name="photo" className="text-4xl text-on-surface-variant/30" decorative />
+                         </div>
+                       )}
+                       <div className={`absolute inset-0 ${TIMELINE_HOVER_COLORS[i]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                     </div>
+                   </div>
+                 </div>
+               </Reveal>
+             );
+           })}
+         </div>
+       </div>
+     </section>
+   );
+ }
 
 const COUNTDOWN_DATA = FESTIVE_AIR_SECTIONS.find((s) => s.type === "countdown")!;
 const COUNTDOWN_CONTENT = COUNTDOWN_DATA.content as CountdownContent;

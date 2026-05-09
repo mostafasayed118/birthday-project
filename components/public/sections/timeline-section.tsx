@@ -63,7 +63,7 @@ function TimelineEventCard({ event, index, isLast }: { event: import("@/lib/type
   );
 }
 
-export function TimelineSection({ content, theme }: SectionProps) {
+export function TimelineSection({ content }: SectionProps) {
   const c = content as TimelineContent;
   const events = c.events || [];
 
@@ -73,7 +73,7 @@ export function TimelineSection({ content, theme }: SectionProps) {
         <Reveal>
           <div className="text-center mb-16 md:mb-24">
             <span className="text-secondary tracking-[0.2em] font-label-md text-xs sm:text-sm uppercase mb-2 md:mb-3 block">
-              {c.heading ? "Our Story" : "How It Started"}
+              {c.heading || "How It Started"}
             </span>
             <h2 className="font-headline-md text-3xl sm:text-4xl md:text-5xl text-primary font-['Epilogue']">
               {c.heading || "Our Journey"}
